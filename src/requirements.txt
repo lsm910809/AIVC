@@ -1,0 +1,14 @@
+# OpenAI関連
+openai
+
+# 音声出力系
+pyttsx3
+pydub
+sounddevice
+soundfile
+
+# GPU対応 PyTorch（CUDA 11.8）
+torch==2.6.0+cu118 --extra-index-url https://download.pytorch.org/whl/cu118
+
+# tts-with-rvc は torch に依存するため、その後にインストール
+tts-with-rvc
