@@ -18,7 +18,7 @@ CONFIG_FILE = "settings.json"
 class MultiChatGUI:
     def __init__(self, root):
         self.root = root
-        self.root.title("AIVC コメントビューア（秋希Bot + RVC/SAPI5対応）")
+        self.root.title("AIVC コメント反応ツール（RVC/SAPI5対応）")
 
         # 内部変数
         self.chat_running = False
@@ -43,6 +43,7 @@ class MultiChatGUI:
         self.pitch_value = tk.IntVar(value=0)
         self.manual_input = tk.StringVar()
         self.keyword_filter = tk.StringVar()
+        self.manual_sender = tk.StringVar(value="しきさん")  # 手動入力の送信者名
 
         # 音声エンジン
         self.engine = pyttsx3.init()
@@ -101,10 +102,12 @@ class MultiChatGUI:
         tk.Label(self.root, text="RVC ピッチ調整（-24〜+24）").pack()
         tk.Scale(self.root, from_=-24, to=24, orient=tk.HORIZONTAL, variable=self.pitch_value, length=400).pack()
 
-        # 手動コメント入力欄
+        # 手動コメント入力欄（送信者指定付き）
         tk.Label(self.root, text="手動コメント入力（自分で話しかけたい時）").pack()
         f_input = tk.Frame(self.root); f_input.pack()
-        tk.Entry(f_input, textvariable=self.manual_input, width=60).pack(side=tk.LEFT)
+        tk.Entry(f_input, textvariable=self.manual_input, width=40).pack(side=tk.LEFT)
+        tk.Label(f_input, text="送信者:").pack(side=tk.LEFT, padx=5)
+        tk.Entry(f_input, textvariable=self.manual_sender, width=15).pack(side=tk.LEFT)
         tk.Button(f_input, text="送信", command=self.send_manual_input).pack(side=tk.LEFT)
 
         # ボタン群
@@ -224,12 +227,12 @@ class MultiChatGUI:
 
     def send_manual_input(self):
         text = self.manual_input.get().strip()
+        sender = self.manual_sender.get().strip() or "???"
         if text:
             self.manual_input.set("")
-            sender = "しきさん"
-            self.text.insert(tk.END, f"[manual] {sender}: {text}\n")
+            self.text.insert(tk.END, f"[manual] {sender}: {text}\n", "manual")
             reply = self.get_ai_reply(sender, text)
-            self.text.insert(tk.END, f"{self.character_name.get()}: {reply}\n")
+            self.text.insert(tk.END, f"{self.character_name.get()}: {reply}\n", "ai")
             threading.Thread(target=self.process_audio, args=(reply,), daemon=True).start()
 
     def process_audio(self, text):
