@@ -26,7 +26,7 @@ AIVC コメントリアクターは、YouTubeやツイキャスの配信コメ�
 ### 1. Python 仮想環境を作成・依存関係をインストール
 
 ```powershell
-git clone https://github.com/yourname/aivc-comment-reactor.git
+git clone https://github.com/lsm910809/AIVC.git
 cd aivc-comment-reactor
 python -m venv .venv
 .venv\Scripts\Activate.ps1
