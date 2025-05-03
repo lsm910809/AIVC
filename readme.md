@@ -30,7 +30,7 @@ git clone https://github.com/lsm910809/AIVC.git
 cd aivc-comment-reactor
 python -m venv .venv
 .venv\Scripts\Activate.ps1
-pip install -r requirements.txt
+pip install -r src/requirements.txt
 python src/main.py
 ```
 
