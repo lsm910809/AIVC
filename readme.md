@@ -16,7 +16,7 @@ AIVC コメントリアクターは、YouTubeやツイキャスの配信コメ�
 ## 🪟 動作環境
 
 - Windows 10 以降（VOICEVOXがWindows専用のため）
-- Python 3.10〜3.12 推奨
+- Python 3.10〜3.12 推奨 (こちらで実行した環境 - 3.10.8)
 - NVIDIA GPU（RVC使用時に推奨、ただしCPUでも動作可）
 
 ---
@@ -27,10 +27,10 @@ AIVC コメントリアクターは、YouTubeやツイキャスの配信コメ�
 
 ```powershell
 git clone https://github.com/lsm910809/AIVC.git
-cd aivc-comment-reactor
+cd AIVC
 python -m venv .venv
 .venv\Scripts\Activate.ps1
-pip install -r requirements.txt
+pip install -r src/requirements.txt
 python src/main.py
 ```
 
